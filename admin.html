@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin OSIS</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="login" class="card">
+<h2>Login Admin</h2>
+<input id="user" placeholder="Username">
+<input id="pass" type="password" placeholder="Password">
+<button onclick="login()">Login</button>
+</div>
+
+<div id="admin" style="display:none">
+
+<div class="card">
+<h3>CRUD Berita</h3>
+<input id="jBerita" placeholder="Judul">
+<textarea id="iBerita" placeholder="Isi"></textarea>
+<button onclick="tambahBerita()">Tambah</button>
+</div>
+
+<div class="card">
+<h3>CRUD Struktur OSIS</h3>
+<input id="jabatan" placeholder="Jabatan">
+<input id="nama" placeholder="Nama">
+<button onclick="tambahStruktur()">Tambah</button>
+</div>
+
+<div class="card">
+<h3>CRUD Galeri</h3>
+<input id="foto" placeholder="URL Foto">
+<input id="caption" placeholder="Caption">
+<button onclick="tambahGaleri()">Tambah</button>
+</div>
+
+</div>
+
+<script>
+const adminUser="admin";
+const adminPass="12345";
+
+function login(){
+ if(user.value===adminUser && pass.value===adminPass){
+  login.style.display="none";
+  admin.style.display="block";
+ }else alert("Login salah");
+}
+
+/* BERITA */
+let berita=JSON.parse(localStorage.getItem("beritaOSIS"))||[];
+function tambahBerita(){
+ berita.push({judul:jBerita.value, isi:iBerita.value});
+ localStorage.setItem("beritaOSIS",JSON.stringify(berita));
+ alert("Berita ditambah");
+}
+
+/* STRUKTUR */
+let struktur=JSON.parse(localStorage.getItem("strukturOSIS"))||[];
+function tambahStruktur(){
+ struktur.push({jabatan:jabatan.value,nama:nama.value});
+ localStorage.setItem("strukturOSIS",JSON.stringify(struktur));
+ alert("Struktur ditambah");
+}
+
+/* GALERI */
+let galeri=JSON.parse(localStorage.getItem("galeriOSIS"))||[];
+function tambahGaleri(){
+ galeri.push({foto:foto.value,caption:caption.value});
+ localStorage.setItem("galeriOSIS",JSON.stringify(galeri));
+ alert("Galeri ditambah");
+}
+</script>
+</body>
+</html>

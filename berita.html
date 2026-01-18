@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Berita OSIS</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+<h1 data-i18n="berita_title">Berita OSIS</h1>
+<a href="index.html">Home</a>
+</header>
+
+<div id="beritaBox"></div>
+
+<script>
+(JSON.parse(localStorage.getItem("beritaOSIS"))||[])
+.forEach(b=>{
+ beritaBox.innerHTML+=`
+ <div class="card">
+ <h3>${b.judul}</h3>
+ <p>${b.isi}</p>
+ </div>`;
+});
+
+/* BAHASA */
+const lang={
+ id:{berita_title:"Berita OSIS"},
+ en:{berita_title:"Student Council News"}
+};
+function applyLang(){
+ let l=localStorage.getItem("lang")||"id";
+ document.querySelectorAll("[data-i18n]").forEach(e=>{
+  e.innerText=lang[l][e.dataset.i18n];
+ });
+}
+applyLang();
+</script>
+</body>
+</html>

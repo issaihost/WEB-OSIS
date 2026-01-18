@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>OSIS SMP Insan Terpadu</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+<h1 data-i18n="title">OSIS SMP INSAN TERPADU</h1>
+<button onclick="setLang('id')">🇮🇩</button>
+<button onclick="setLang('en')">🇬🇧</button>
+<a href="berita.html">Berita</a>
+</header>
+
+<div class="card">
+<h2 data-i18n="about_title">Tentang OSIS</h2>
+<p data-i18n="about_desc">
+OSIS SMP Insan Terpadu adalah organisasi siswa tingkat nasional.
+</p>
+</div>
+
+<div class="card">
+<h2 data-i18n="struktur_title">Struktur OSIS</h2>
+<div id="struktur"></div>
+</div>
+
+<div class="card">
+<h2 data-i18n="galeri_title">Galeri Kegiatan</h2>
+<div id="galeri"></div>
+</div>
+
+<script>
+/* STRUKTUR */
+(JSON.parse(localStorage.getItem("strukturOSIS"))||[])
+.forEach(s=>{
+ struktur.innerHTML+=`<p><b>${s.jabatan}</b> - ${s.nama}</p>`;
+});
+
+/* GALERI */
+(JSON.parse(localStorage.getItem("galeriOSIS"))||[])
+.forEach(g=>{
+ galeri.innerHTML+=`
+ <div class="card">
+ <img src="${g.foto}" width="100%">
+ <p>${g.caption}</p>
+ </div>`;
+});
+
+/* BAHASA */
+const lang={
+ id:{
+  title:"OSIS SMP INSAN TERPADU",
+  about_title:"Tentang OSIS",
+  about_desc:"OSIS SMP Insan Terpadu adalah organisasi siswa bertingkat nasional.",
+  struktur_title:"Struktur OSIS",
+  galeri_title:"Galeri Kegiatan"
+ },
+ en:{
+  title:"Student Council – Insan Terpadu",
+  about_title:"About Student Council",
+  about_desc:"The Student Council operates at a national level.",
+  struktur_title:"Organization Structure",
+  galeri_title:"Activity Gallery"
+ }
+};
+
+function setLang(l){
+ localStorage.setItem("lang",l);
+ applyLang();
+}
+function applyLang(){
+ let l=localStorage.getItem("lang")||"id";
+ document.querySelectorAll("[data-i18n]").forEach(e=>{
+  e.innerText=lang[l][e.dataset.i18n];
+ });
+}
+applyLang();
+</script>
+</body>
+</html>
